@@ -101,18 +101,14 @@ class MenuController extends BaseController
 
         $array = $this->getChildren($menu);
 
-
         return json_encode($array);
     }
 
-    public function getChildren($menu, $parent_id = 0): array
+    public function getChildren($menu, $parent_id = null): array
     {
         $nestedArray = array();
 
-        $children = array();
-
         foreach ($menu as $index => $menuItem) {
-
             if (!isset($menuItem['parent_id'])) {
                 $nestedArray[$index] = $menuItem;
             } else {
