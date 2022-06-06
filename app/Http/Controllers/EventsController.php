@@ -181,22 +181,17 @@ class EventsController extends BaseController
     ```
      */
 
-    public function getFutureEventsWithWorkshops()
+    public function getFutureEventsWithWorkshops(): string
     {
-//        \DB::enableQueryLog();
-//        $events = Event::query()->select([
-//            'events.*',
-//        ])->join('events', 'events.id', '=', 'workshops.event_id', 'left')
-//            ->from('workshops')
-//            ->groupBy(['events.id', 'events.updated_at','events.name', 'events.created_at'])
-//            ->where('events.updated_at', '<', \DB::raw('workshops.start'));
-//
-//        $events = $events->with('workshops')->get();
-////dd($events->toArray(),  \DB::getQueryLog());
-////        throw new \Exception('implement in coding task 2');
-//
-//        return $events->toJson();
+        $events = Event::query()->select([
+            'events.*',
+        ])->join('events', 'events.id', '=', 'workshops.event_id', 'left')
+            ->from('workshops')
+            ->groupBy(['events.id', 'events.updated_at','events.name', 'events.created_at'])
+            ->where('events.updated_at', '<', \DB::raw('workshops.start'));
 
-        throw new \Exception('implement in coding task 2');
+        $events = $events->with('workshops')->get();
+
+        return $events->toJson();
     }
 }
