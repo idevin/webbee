@@ -94,7 +94,32 @@ class MenuController extends BaseController
     ]
      */
 
-    public function getMenuItems() {
-//        throw new \Exception('implement in coding task 3');
+    public function getMenuItems()
+    {
+
+        $menu = MenuItem::query()->orderBy('parent_id')->get()->toArray();
+
+        $array = $this->getChildren($menu);
+
+
+        return json_encode($array);
+    }
+
+    public function getChildren($menu, $parent_id = 0): array
+    {
+        $nestedArray = array();
+
+        $children = array();
+
+        foreach ($menu as $index => $menuItem) {
+
+            if (!isset($menuItem['parent_id'])) {
+                $nestedArray[$index] = $menuItem;
+            } else {
+                $nestedArray[$parent_id]['children'][$menuItem['id']] = $this->getChildren($menuItem, $menuItem['parent_id']);
+            }
+        }
+
+        return $nestedArray;
     }
 }
