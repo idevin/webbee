@@ -112,7 +112,8 @@ class MenuController extends BaseController
             if (!isset($menuItem['parent_id'])) {
                 $nestedArray[$index] = $menuItem;
             } else {
-                $nestedArray[$parent_id]['children'][$menuItem['id']] = $this->getChildren($menuItem, $menuItem['parent_id']);
+                $nestedArray[$menuItem['parent_id']]['children'][$menuItem['id']] = $this->getChildren($menuItem, $menuItem['parent_id']);
+                $nestedArray[$menuItem['parent_id']]['children'] = array_values($nestedArray[$menuItem['parent_id']]['children']);
             }
         }
 
