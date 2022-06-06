@@ -3,15 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Date;
 
 class EventsController extends BaseController
 {
-    public function getWarmupEvents() {
+    public function getWarmupEvents()
+    {
         return Event::all();
     }
 
@@ -100,8 +97,13 @@ class EventsController extends BaseController
     ]
      */
 
-    public function getEventsWithWorkshops() {
-        throw new \Exception('implement in coding task 1');
+    public function getEventsWithWorkshops(): string
+    {
+
+        $events = Event::query()->with(['workshops'])->get();
+
+        return $events->toJson();
+
     }
 
 
@@ -179,7 +181,22 @@ class EventsController extends BaseController
     ```
      */
 
-    public function getFutureEventsWithWorkshops() {
+    public function getFutureEventsWithWorkshops()
+    {
+//        \DB::enableQueryLog();
+//        $events = Event::query()->select([
+//            'events.*',
+//        ])->join('events', 'events.id', '=', 'workshops.event_id', 'left')
+//            ->from('workshops')
+//            ->groupBy(['events.id', 'events.updated_at','events.name', 'events.created_at'])
+//            ->where('events.updated_at', '<', \DB::raw('workshops.start'));
+//
+//        $events = $events->with('workshops')->get();
+////dd($events->toArray(),  \DB::getQueryLog());
+////        throw new \Exception('implement in coding task 2');
+//
+//        return $events->toJson();
+
         throw new \Exception('implement in coding task 2');
     }
 }
